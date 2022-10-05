@@ -17,17 +17,24 @@ from django.contrib import admin
 from django.urls import path , include
 from django.conf import settings
 from django.conf.urls.static import static
-from Attendance import views as v
+#from Attendance import views as v
+from . import views
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', v.home , name ='home'),
-    path('Attendance/', include('Attendance.urls')),
-    path(' ', include('Attendance.urls')),
-    path('', include('Attendance.urls')),
-    path('Attendance/',include('django.contrib.auth.urls')),
+    path('', views.index, name='home'),
+    path('accounts/', include('accounts.urls')),
+    path('students/', include('students.urls')),
+    path('lecturers/', include('lecturers.urls')),
+
+    #path('', v.home , name ='home'),
+
+    # path('Attendance/', include('Attendance.urls')),
+    # path(' ', include('Attendance.urls')),
+    # path('', include('Attendance.urls')),
+    # path('Attendance/',include('django.contrib.auth.urls')),
     #path("accounts/", include("django.contrib.auth.urls")),
 
     

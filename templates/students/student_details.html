@@ -1,0 +1,89 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid" style="width: 99%;">
+
+<br>
+
+<div class="row">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-header">
+                 <i class="fa fa-align-justify"></i> Students Academic Info
+            </div>
+            <div class="card-body">
+                <tbody>
+                    <tr>
+                        
+                        <td>Faculty: <span style="font-weight: 500;">  {{ single_student.Faculty }} </span> </td> 
+                        <br>
+                        <td>Student No : <span style="font-weight: 500;"> {{ single_student.student_number}} </span> </td>
+                        <br>
+                        <td>Class:<span style="font-weight: 500;">  {{ single_student.class_type }} </span> </td>
+                     
+                    </tr>
+                </tbody>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-header">
+                 <i class="fa fa-align-justify"></i> Students Personal Info
+            </div>
+            <div class="card-body">
+
+                <div> Full Name : <span style="font-weight: 500;"> {{ single_student.full_name }} </span> </div>
+                   
+                <div> Email : <span style="font-weight: 500;">  {{ single_student.student_email }}</span> </div>
+                <div> cellphone : <span style="font-weight: 500;">  {{ single_student.student_cellphone }}</span> </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                 <i class="fa fa-align-justify"></i> Student Modules
+            </div>
+            <div class="card-body">
+                <tbody>
+                    <tr>
+                        {% for i in single_student.modules.all %}
+                        <td>{{i}}</td>
+                        <br>
+                        {% empty %}
+                            Admin Has not assigned Modules Yet
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                 <i class="fa fa-align-justify"></i> Lectures
+            </div>
+            <div class="card-body">
+                <tbody>
+                    <tr>
+                        {% for i in single_student.modules.all %}
+                        <td> <span style="font-weight: 500;">{{i.module_instructor.name.get_full_name}}</span>  - {{i}}</td>
+                        <br>
+                        {% empty %}
+                            No Lecturers Assigned yet
+                        {% endfor %}
+                    </tr>
+                    </tr>
+                </tbody>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+

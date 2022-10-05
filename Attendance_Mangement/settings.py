@@ -38,12 +38,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'bootstrap5',
+
+
     #Our apps
-     'Attendance',
+     'accounts',
+     'students',
+     'lecturers',
+
      'widget_tweaks',
 ]
 
-AUTH_USER_MODEL ="Attendance.CustomUser"
+#AUTH_USER_MODEL ="Attendance.CustomUser"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -124,20 +132,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static'),
-    os.path.join(BASE_DIR,'media'),
+    os.path.join(BASE_DIR, 'Attendance_Mangement/static')
 ]
 
-STATIC_URL = '/static/'
-MEDIA_URL ='/media/'
 
-STATIC_ROOT = os.path.join(BASE_DIR ,'static_cdn')
-MEDIA_ROOT = os.path.join(BASE_DIR ,'media_cdn')
-
-TEMP = os.path.join(BASE_DIR,'media_cdn/temp') #CROP THE PROFILE IMAGES,to save cropped images in the server
+# Media folder
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 BASE_DIR ="http://127.0.0.1:8000 "
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
+
+
 
 #Email staff
 
@@ -149,7 +166,7 @@ BASE_DIR ="http://127.0.0.1:8000 "
 # EMAIL_HOST_PASSWORD = '0842115630'
 
 # Registering Custom Backend "EmailBackEnd"
-AUTHENTICATION_BACKENDS = ['Attendance.EmailBackends.EmailBackends']
+#AUTHENTICATION_BACKENDS = ['Attendance.EmailBackends.EmailBackends']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

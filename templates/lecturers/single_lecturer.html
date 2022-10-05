@@ -1,0 +1,73 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-header">
+                 <i class="fa fa-align-justify"></i> Lecturer Information
+            </div>
+            <div class="card-body">
+                <tbody>
+                    <tr>
+                        <td>Full Name: {{ single_lecturer.name }}</td>
+                        <br>
+                        <td>Email: {{ single_lecturer.email }}</td>
+                        <br>
+                        <td>Age: {{ single_lecturer.age }}</td>
+                        <br>
+                        <td>Gender: {{ single_lecturer.gender }}</td>
+                        <br>
+                        <td>Joining Date: {{ single_lecturer.joining_date }}</td>
+                        <br>
+                        <td>Passing Year: {{ single_lecturer.passing_year }}</td>
+                    </tr>
+                </tbody>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-header">
+                 <i class="fa fa-align-justify"></i> Lecturer Personal Info
+            </div>
+            <div class="card-body">
+
+                <h6>Department: {{ single_lecturer.dept_type }}</h6>
+                <h6>Subject: {{ single_lecturer.sub_type }}</h6>
+                <h6>Salary: {{ single_lecturer.salary }} </h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-header">
+                 <i class="fa fa-align-justify"></i> Lecturers Personal Info
+            </div>
+            <div class="card-body">
+
+                <h6>Department: {{ single_lecturer.dept_type }}</h6>
+                <h6>Subject: {{ single_lecturer.sub_type }}</h6>
+                <h6>Salary: {{ single_lecturer.salary }} </h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-header">
+                 <i class="fa fa-align-justify"></i> Lecturers Image
+            </div>
+            <div class="card-body">
+                <img src="{{ single_lecturer.lecturer_img.url }}" class="img-fluid" />
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
