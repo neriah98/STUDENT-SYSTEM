@@ -47,6 +47,7 @@ INSTALLED_APPS = [
      'accounts',
      'students',
      'lecturers',
+     'admins',
 
      'widget_tweaks',
 ]

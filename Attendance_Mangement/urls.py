@@ -28,6 +28,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('students/', include('students.urls')),
     path('lecturers/', include('lecturers.urls')),
+    path('admins/', include('admins.urls')),
 
     #path('', v.home , name ='home'),
 

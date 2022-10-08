@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User 
-
+#from students.models import StudentModules
 # Create your models here.
 class LecturerDeptInfo(models.Model):
     dept_name = models.CharField(max_length=50)
@@ -15,21 +15,26 @@ class LecturerSubInfo(models.Model):
         return self.sub_name
 
 class LecturerInfo(models.Model):
-    name = models.OneToOneField(User, on_delete=models.CASCADE ,default=1 ) # this has the username inside
-    email = models.EmailField(unique=True ,null=True,blank=True)
-    age = models.IntegerField(null=True,blank=True)
+    name = models.OneToOneField(User, on_delete=models.CASCADE ,default=1 )
+    full_name = models.CharField(max_length=100 ,null=True,blank=True )
+    lecturer_email = models.EmailField(unique=True ,null=True,blank=True)
+    lecturer_cellphone = models.CharField(max_length=100 ,null=True,blank=True )
     gender_choice = (
         ("male", "Male"),
         ("Female", "Female"),
     )
     gender = models.CharField(choices=gender_choice, max_length=10) 
-    #lecturer_img = models.ImageField(upload_to='photos/%Y/%m/%d/')
-    #passing_year = models.CharField(max_length=100)
-    joining_date = models.DateField(auto_now_add=True)
-    dept_type = models.ForeignKey(LecturerDeptInfo, on_delete=models.CASCADE ,null=True)
-    sub_type = models.ForeignKey(LecturerSubInfo, on_delete=models.CASCADE,null=True)
-    #salary = models.IntegerField()
+    faculty_choice = (
+        ("Education", "Education"),
+        ("EMS", "EMS"),
+         ("Law", "Law"),
+          ("Humanities", "Humanities"),
+           ("Theology", "Theology"),
+            ("NAS", "NAS"),
+            ("Health Science", "Health Sciences")
+    )
+    module = models.ForeignKey("students.StudentModules", on_delete=models.SET_NULL , null=True , related_name="lecturer_modules")
+    Faculty = models.CharField( choices=faculty_choice, max_length=100 ,null=True,blank=True )
 
     def __str__(self):
-        return str(self.name)
-
+        return str(self.full_name)

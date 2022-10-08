@@ -14,8 +14,8 @@
         <hr>
         <div >
            
-        <span class="d-flex">  full Name :  <h5> &nbsp; {{logged_in_as_student}} </h5> </span> 
-       <span class="d-flex">  Student No. :  <h5> &nbsp;{{logged_in_as_student.name}} </h5> </span>  
+        <span class="d-flex">  Full Name :  <h5> &nbsp; {{logged_in_as_student}} </h5> </span> 
+       <span class="d-flex">  Student Number :  <h5> &nbsp;{{logged_in_as_student.student_number}} </h5> </span>  
          <span class="d-flex">  Student Email :   <h5> &nbsp;{{logged_in_as_student.student_email}} </h5> </span> 
 
          <div class="d-flex">   
@@ -23,6 +23,16 @@
             <a href="{% url 'students:single_student' logged_in_as_student.id %}"> View All Details</a>
         </div> 
         <hr>
+
+
+        <div class="sessions" style="height: 4cm;">
+            <h2><strong>Sessions</strong></h2>
+            {% for session in student_sessions %}
+                <h6>  <a style="text-decoration:underline;" href="{% url 'lecturers:single_session' session.id %}"> {{session.session_name}} </a>  </h5>    
+            {% endfor %}
+        </div>
+
+
 
         <div class="student-modules">
             <h2><strong>Modules</strong></h2>
@@ -35,7 +45,14 @@
                         <div class="row">
                             <br>
                             <div class="col"> 
-                                <h6 >lecturer : {{i.module_instructor.name.get_full_name}}</h6>
+
+                                {% with i.lecturer_modules.all as lecturers %} 
+                                    {% for lecturer in lecturers %}
+                                      <h6 class="d-flex"> lecture :  <a href="{% url 'lecturers:single_lecturer' lecturer.id %}"> {{lecturer.full_name}} </a>  </h6>  
+                                      {% empty %}
+                                       <h6>No Lecturer</h6>
+                                    {% endfor %}
+                                {% endwith %}
                              </div>
                             
                         </div>
@@ -51,7 +68,7 @@
             </div>
           
         </div>
-
+<!-- ################### End of Student Dashboard ####################################-->
 
 
 
@@ -66,21 +83,48 @@
 
 
 
-
-
-
-
-
-<!-- ################### End of Student Dashboard ####################################-->
+<!-- ################### Teachers Dashboard ####################################-->
     {% elif logged_in_as_lecturer in lecturers %}    
-        <h3>Home Page for Lecturers</h3>
-        <p> Lecturer features will show below?? </p>
-    {% else %}
-        <h3>Home Page for Admin</h3>
-        <p> Admin features will show below?? </p>
-    {% endif %}
+        
+    <h3> Logged In As Lecturer</h3>
+    <hr>
+    <div >
+       
+    <span class="d-flex">  full Name :  <h5> &nbsp; {{logged_in_as_lecturer.full_name}} </h5> </span> 
+   <span class="d-flex">   Lecturer  No. :  <h5> &nbsp;{{logged_in_as_lecturer.name}} </h5> </span>  
+     <span class="d-flex">  Lecturer Email :   <h5> &nbsp;{{logged_in_as_lecturer.lecturer_email}} </h5> </span> 
+     <div class="d-flex">   
+        <a href="{% url 'lecturers:edit_lecturer' logged_in_as_lecturer.id %}"> Edit Details</a> &nbsp;|&nbsp;
+        <a href="{% url 'lecturers:single_lecturer' logged_in_as_lecturer.id %}"> View All Details</a>
+    </div> 
+     {{ logged_in_as_lecturer.module}}
+     <hr>
+
+     <div class="row">
+         <div class="col-4">
+           
+            <div class="card card-body">
+                <center>  
+             <h1> {{enrolled_students|length}} </h1>   
+             <h5> Total Number Of Students </h5>   
+             <a href="{% url 'students:student_list' %}"> view enrolled students</a>
+            </center>
+            </div>
+         </div>
+         <div class="col-4">
+             <a href="{% url 'lecturers:session' %}"> Create New Session</a>
+        </div>
+     </div>
+  
+         
+
+<!-- ################### End of Lecturers Dashboard ####################################-->
+{% else %}
+<h3>Home Page for Admin</h3>
+<p> Admin features will show below?? </p>
+{% endif %}
 </div>
-cd
+
 
 
 {% endblock %}

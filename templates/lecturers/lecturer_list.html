@@ -11,7 +11,7 @@
         <br>
         <div class="card">
             <div class="card-header">
-                <i class="fa fa-align-justify"></i> Lecturer List</div>
+                <i class="fa fa-align-justify"></i> Lecturers List</div>
             <div class="card-body">
                 <table class="table table-responsive-sm table-bordered table-striped table-sm">
                     <thead>
@@ -19,9 +19,9 @@
                             <th>SL</th>
                             <th>Full Name</th>
                             <th>Email</th>
-                            <th>Department</th>
-                            <th>Subject</th>
-                            <th>Joining Date</th>
+                            <th>Faculty</th>
+                            <th>Module</th>
+                           
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -29,17 +29,17 @@
                         {% for lecturer in lecturers %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
-                                <td>{{ lecturer.get_full_name }}</td>
-                                <td>{{ lecturer.email }}</td>
-                                <td>{{ lecturer.dept_type }}</td>
-                                <td>{{ lecturer.sub_type }}</td>
-                                <td>{{ lecturer.joining_date }}</td>
+                                <td>{{ lecturer.full_name }}</td>
+                                <td>{{ lecturer.lecturer_email }}</td>
+                                <td>{{ lecturer.Faculty }}</td>
+                                <td> {{lecturer.module.module_name}}</td>
+                             
                                 <td>
                                     <a href="{% url 'lecturers:single_lecturer' lecturer.id %}">
                                         <button type="button" class="btn btn-primary">Details</button>
                                     </a>
-                                    <a href="{% url 'lecturers:edit_lecturer' teacher.id %}">
-                                        <button type="button" class="btn btn-info">Edit<i class="fa fa-edit"></i></button>
+                                    <a href="{% url 'lecturers:edit_lecturer' lecturer.id %}">
+                                        <button type="button" class="btn btn-info"><i class="fa fa-edit"></i></button>
                                     </a>
                                     <a href="{% url 'lecturers:delete_lecturer' lecturer.id %}">
                                         <button type="button" class="btn btn-danger">X</button>
@@ -77,11 +77,11 @@
             {% endif %}
 
             <span class="position-relative " style="font-weight: 600; margin-left: 0.8cm; margin-right: 0.8cm;">
-                 {{ lecturers.number }} of {{ lecturers.paginator.num_pages }} 
+                 {{ lecturer.number }} of {{ lecturers.paginator.num_pages }} 
             </span>    
 
             {% if lecturers.has_next %}
-                <a style="text-decoration: none;"class="position-relative " href="?page={{ teachers.next_page_number }}">
+                <a style="text-decoration: none;"class="position-relative " href="?page={{ lecturers.next_page_number }}">
                     next <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                       </svg></a>

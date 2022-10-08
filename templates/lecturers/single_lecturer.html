@@ -2,55 +2,42 @@
 {% load static %}
 
 {% block content %}
+<div class="container-fluid" style="width: 100%;">
 
+<br>
 <div class="row">
     <div class="col-lg-7">
         <div class="card">
             <div class="card-header">
-                 <i class="fa fa-align-justify"></i> Lecturer Information
+                 <i class="fa fa-align-justify"></i>  Lecturer Personal Info
             </div>
             <div class="card-body">
                 <tbody>
                     <tr>
-                        <td>Full Name: {{ single_lecturer.name }}</td>
+                        <td>Full Name: {{ single_lecturer.full_name }}</td>
                         <br>
-                        <td>Email: {{ single_lecturer.email }}</td>
+                        <td>Email: {{ single_lecturer.lecturer_email }}</td>
                         <br>
-                        <td>Age: {{ single_lecturer.age }}</td>
+                        <td>Lecturer Cellphone: {{ single_lecturer.lecturer_cellphone}}</td>
                         <br>
                         <td>Gender: {{ single_lecturer.gender }}</td>
                         <br>
-                        <td>Joining Date: {{ single_lecturer.joining_date }}</td>
-                        <br>
-                        <td>Passing Year: {{ single_lecturer.passing_year }}</td>
                     </tr>
                 </tbody>
             </div>
         </div>
     </div>
+
     <div class="col-lg-5">
         <div class="card">
             <div class="card-header">
-                 <i class="fa fa-align-justify"></i> Lecturer Personal Info
+                 <i class="fa fa-align-justify"></i> Lecturer Academic Info
             </div>
             <div class="card-body">
 
-                <h6>Department: {{ single_lecturer.dept_type }}</h6>
-                <h6>Subject: {{ single_lecturer.sub_type }}</h6>
-                <h6>Salary: {{ single_lecturer.salary }} </h6>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-5">
-        <div class="card">
-            <div class="card-header">
-                 <i class="fa fa-align-justify"></i> Lecturers Personal Info
-            </div>
-            <div class="card-body">
-
-                <h6>Department: {{ single_lecturer.dept_type }}</h6>
-                <h6>Subject: {{ single_lecturer.sub_type }}</h6>
-                <h6>Salary: {{ single_lecturer.salary }} </h6>
+                <h6>Faculty: {{ single_lecturer.Faculty }}</h6>
+                <h6>Module: {{ single_lecturer.module.module_name}}</h6>
+             
             </div>
         </div>
     </div>
@@ -69,5 +56,6 @@
     </div>
 </div>
 
+</div>
 {% endblock %}
 

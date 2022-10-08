@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 from .forms import CreateLecturer
 from django.contrib import messages
 from django.core.paginator import Paginator
-from .forms import SignUpForm
+from .forms import SignUpForm , SessionForm
 from django.contrib.auth import login
-
+from students.models import *
 # Create your views here.
 def lecturer_list(request):
     lecturers = LecturerInfo.objects.all()
@@ -22,8 +22,26 @@ def lecturer_list(request):
 
 def single_lecturer(request, lecturer_id):
     single_lecturer = get_object_or_404(LecturerInfo, pk=lecturer_id)
+    if request.user.is_authenticated:
+        students = StudentInfo.objects.all()
+        lecturers=LecturerInfo.objects.all()
+        
+        try:
+            logged_in_as_student = StudentInfo.objects.get(name= request.user)
+        except:
+            logged_in_as_student = ""
+           
+            
+        try:
+            logged_in_as_lecturer = LecturerInfo.objects.get(name= request.user)
+        except:
+            logged_in_as_lecturer=""
     context = {
-        "single_lecturer": single_lecturer
+        "single_lecturer": single_lecturer,
+          "logged_in_as_student":logged_in_as_student,
+        "logged_in_as_lecturer": logged_in_as_lecturer,
+        "students":students,
+        "lecturers":lecturers
     }
     return render(request, "lecturers/single_lecturer.html", context)
 
@@ -42,7 +60,7 @@ def create_lecturer(request):
     context = {
         "forms": forms
     }
-    return render(request, "lecturers/create_lecturers.html", context)
+    return render(request, "lecturers/create_lecturer.html", context)
 
 
 def edit_lecturer(request, pk):
@@ -60,7 +78,7 @@ def edit_lecturer(request, pk):
     context = {
         "edit_lecturer_forms": edit_lecturer_forms
     }
-    return render(request, "lecturers/edit_lecturer.html", context)
+    return render(request, "lectures/edit_lecturer.html", context)
 
 
 def delete_lecturer(request, lecturer_id):
@@ -84,7 +102,7 @@ def register(request):
             get_id = form.instance.id  # get the id of a use--it has a username inside
             users = User.objects.get(id=get_id) # get the new user
             print(users)
-            lecturerProfiles = LecturerInfo.objects.create( name = users)
+            lecturerProfiles = LecturerInfo.objects.create( name = users , lecturer_email=users.email,full_name=users.get_full_name())
             lecturerProfiles.save()
 
             new_user.save()
@@ -94,3 +112,22 @@ def register(request):
     context = {'form': form}
     return render(request, 'lecturers/registration/register.html', context)
 
+
+def session(request):
+    if request.method == "POST":
+        form = SessionForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+        messages.success(request, "Session created Successfully!")
+        return redirect("home")
+    else:
+        form = SessionForm()
+
+    context = {'form': form}
+    return render(request, "lecturers/session.html" , context  )
+
+def single_session(request, session_id):
+    session = StudentSession.objects.get(id=session_id)
+    context = {"session":session}
+    return render(request,"lecturers/single_session.html",context)
